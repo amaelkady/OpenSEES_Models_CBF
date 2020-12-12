@@ -80,14 +80,6 @@ proc Spring_PZ {P_Elm NodeI NodeJ E mu fy  tw_Col tdp d_Col d_Beam tf_Col bf_Col
  set Vp_6gamma 	[expr 0.577 * $fy * ($aw_eff_6gamma * ($d_Col - $tf_Col) * $tpz + $af_eff_6gamma * ($bf_Col - $tw_Col) * 2*$tf_Col)];  # Plastic Shear Force @ 6 gammaY
 
 ##################################################################################################################
-# Random generation of backbone parameters based on assigned uncertainty 
-##################################################################################################################
-global Sigma_PZ; global xRandom;
-set SigmaX [lindex $Sigma_PZ 0]; Generate_lognrmrand $Ke 		$SigmaX; 	set Ke 			$xRandom;
-set SigmaX [lindex $Sigma_PZ 1]; Generate_lognrmrand $Vy 		$SigmaX; 	set Vy 			$xRandom;
-set SigmaX [lindex $Sigma_PZ 2]; Generate_lognrmrand $Vp_4gamma $SigmaX; 	set Vp_4gamma 	[expr max(1.01*$Vy,$xRandom)];
-set SigmaX [lindex $Sigma_PZ 3]; Generate_lognrmrand $Vp_6gamma $SigmaX; 	set Vp_6gamma 	[expr max(1.01*$Vp_4gamma,$xRandom)];
-##################################################################################################################
 ##################################################################################################################
 
  set gamma_y  [expr $Vy/$Ke]; 
