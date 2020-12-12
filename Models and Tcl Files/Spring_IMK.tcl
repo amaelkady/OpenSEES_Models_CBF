@@ -281,74 +281,9 @@ set My_P     [expr  $MyPMy * $My];
 set My_N     [expr  $MyNMy * $My];
 
 
-# # Bilin material model
-#set My_P     [expr  $MyPMy * $My]; 
-#set My_N     [expr -$MyNMy * $My];		
-#set as_mem_p [expr  ($McMyP-1.)*$My_P/($theta_p_P * 6.*$E * $Ix/$L)];
-#set as_mem_n [expr -($McMyN-1.)*$My_N/($theta_p_N * 6.*$E * $Ix/$L)];
-#set SH_mod_P [expr ($as_mem_p)/(1.0+$n*(1.0-$as_mem_p))];
-#set SH_mod_N [expr ($as_mem_n)/(1.0+$n*(1.0-$as_mem_n))];
-#uniaxialMaterial Bilin    $SpringID $K $SH_mod_P $SH_mod_N $My_P $My_N $L_S $L_C $L_A $L_K $c_S $c_C $c_A $c_K $theta_p_P $theta_p_N $theta_pc_P $theta_pc_N $Res_P $Res_N $theta_u $theta_u $D_P $D_N
-
-
-##################################################################################################################
-#Random generation of backbone parameters based on assigned uncertainty 
-##################################################################################################################
-global Sigma_IMKcol Sigma_IMKbeam; global xRandom;
-if {$ConnectionType == 2} {
-	set SigmaX [lindex $Sigma_IMKcol  0]; Generate_lognrmrand $K $SigmaX; 			set K 			$xRandom;
-	set SigmaX [lindex $Sigma_IMKcol  1]; Generate_lognrmrand $My_P $SigmaX; 		set My_P 		$xRandom;
-																					set My_N 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKcol  2]; Generate_lognrmrand $McMyP $SigmaX; 		set McMyP 		[expr max(1.01,$xRandom)];
-																					set McMyN 		[expr max(1.01,$xRandom)];
-	set SigmaX [lindex $Sigma_IMKcol  3]; Generate_lognrmrand $Res_P $SigmaX; 		set Res_P 		$xRandom;
-																					set Res_N 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKcol  4]; Generate_lognrmrand $theta_p_P $SigmaX; 	set theta_p_P 	$xRandom;
-																					set theta_p_N 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKcol  5]; Generate_lognrmrand $theta_pc_P $SigmaX; 	set theta_pc_P 	$xRandom;
-																					set theta_pc_N 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKcol  6]; Generate_lognrmrand $theta_u $SigmaX; 	set theta_u 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKcol  7]; Generate_lognrmrand $Lmda $SigmaX; 		set Lmda 		$xRandom;
-	#set SigmaX [lindex $Sigma_IMKcol  8]; Generate_lognrmrand $c $SigmaX; 			set c 			$xRandom;
-}
-if {$ConnectionType != 2 && $CompositeFlag == 0} {
-	set SigmaX [lindex $Sigma_IMKbeam 0]; Generate_lognrmrand $K $SigmaX; 			set K 			$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 1]; Generate_lognrmrand $My_P $SigmaX; 		set My_P 		$xRandom;
-																					set My_N 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 2]; Generate_lognrmrand $McMyP $SigmaX; 		set McMyP 		[expr max(1.01,$xRandom)];
-																					set McMyN 		[expr max(1.01,$xRandom)];
-	set SigmaX [lindex $Sigma_IMKbeam 3]; Generate_lognrmrand $Res_P $SigmaX; 		set Res_P 		$xRandom;
-																					set Res_N 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 4]; Generate_lognrmrand $theta_p_P $SigmaX; 	set theta_p_P 	$xRandom;
-																					set theta_p_N 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 5]; Generate_lognrmrand $theta_pc_P $SigmaX; 	set theta_pc_P 	$xRandom;
-																					set theta_pc_N 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 6]; Generate_lognrmrand $theta_u $SigmaX; 	set theta_u 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 7]; Generate_lognrmrand $Lmda $SigmaX; 		set Lmda 		$xRandom;
-	#set SigmaX [lindex $Sigma_IMKbeam 8]; Generate_lognrmrand $c $SigmaX; 			set c 			$xRandom;
-
-} 
-if {$ConnectionType != 2 && $CompositeFlag == 1} {
-	set SigmaX [lindex $Sigma_IMKbeam 0]; Generate_lognrmrand $K 		  $SigmaX; 	set K 			$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 1]; Generate_lognrmrand $My_P 	  $SigmaX; 	set My_P 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 1]; Generate_lognrmrand $My_N 	  $SigmaX; 	set My_N 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 2]; Generate_lognrmrand $McMyP 	  $SigmaX; 	set McMyP 		[expr max(1.01,$xRandom)];
-	set SigmaX [lindex $Sigma_IMKbeam 2]; Generate_lognrmrand $McMyN 	  $SigmaX; 	set McMyN 		[expr max(1.01,$xRandom)];
-	set SigmaX [lindex $Sigma_IMKbeam 3]; Generate_lognrmrand $Res_P 	  $SigmaX; 	set Res_P 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 3]; Generate_lognrmrand $Res_N 	  $SigmaX; 	set Res_N 		$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 4]; Generate_lognrmrand $theta_p_P  $SigmaX; 	set theta_p_P 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 4]; Generate_lognrmrand $theta_p_N  $SigmaX; 	set theta_p_N 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 5]; Generate_lognrmrand $theta_pc_P $SigmaX; 	set theta_pc_P 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 5]; Generate_lognrmrand $theta_pc_N $SigmaX; 	set theta_pc_N 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 6]; Generate_lognrmrand $theta_u 	  $SigmaX; 	set theta_u 	$xRandom;
-	set SigmaX [lindex $Sigma_IMKbeam 7]; Generate_lognrmrand $Lmda 	  $SigmaX; 	set Lmda 		$xRandom;
-	#set SigmaX [lindex $Sigma_IMKbeam 8]; Generate_lognrmrand $c 		  $SigmaX; 	set c 			$xRandom;
-}
-##################################################################################################################
-##################################################################################################################
-##################################################################################################################
-
-
+#######################################################################################################
+#######################################################################################################
+#######################################################################################################
 
 # Cyclic deterioration parameters
 if {$ConnectionType == 2} {
