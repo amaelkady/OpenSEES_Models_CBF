@@ -1190,12 +1190,8 @@ set T12 [expr round(2.0*$pi/$w12 *1000.)/1000.];
 puts "T1 = $T1 s";
 puts "T2 = $T2 s";
 puts "T3 = $T3 s";
-cd $RFpath;
-cd "Results"
-cd "EigenAnalysis"
 set fileX [open "EigenPeriod.out" w];
-puts $fileX $T1;puts $fileX $T2;puts $fileX $T3;puts $fileX $T4;puts $fileX $T5;puts $fileX $T6;puts $fileX $T7;puts $fileX $T8;puts $fileX $T9;puts $fileX $T10;puts $fileX $T11;puts $fileX $T12;close $fileX;
-cd $MainDir;
+puts $fileX $T1;puts $fileX $T2;close $fileX;
 
 constraints Plain;
 algorithm Newton;
