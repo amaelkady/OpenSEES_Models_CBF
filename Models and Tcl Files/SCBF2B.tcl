@@ -77,7 +77,7 @@ set NBay  1;
 set E  29000.0; 
 set mu    0.3; 
 set fy  [expr  55.0 *   1.0];
-set fyB [expr  55.0 *   1.0];
+set fyB [expr  45.0 *   1.0];
 set fyG [expr  55.0 *   1.0];
 
 # BASIC MATERIALS
