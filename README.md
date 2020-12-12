@@ -1,2 +1,3 @@
 # OpenSEES_Models_SCBF
-Two-Dimensional OpenSEES Numerical Models for Archetype Steel Buildings with Special Concentrically-Braced Frames
+
+This folder contains ready-to-run 2-dimensional OpenSEES models of four archetype steel buildings designed with perimeter special concentrically-braced frames (SCBFs), with heights of 3, 6, 12 and 16-story
